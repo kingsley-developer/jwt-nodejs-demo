@@ -1,0 +1,1 @@
+{"version":3,"file":"Fake-db.js","sourceRoot":"","sources":["../Server-Logic/Fake-db.ts"],"names":[],"mappings":";;AAOA,IAAI,MAAM,GAAmB;IACzB;QACI,EAAE,EAAE,CAAC;QACL,KAAK,EAAE,SAAS;QAChB,QAAQ,EAAE,8DAA8D;QACxE,YAAY,EAAE,EAAE;KACnB;CACJ,CAAA;AAED,kBAAe,MAAM,CAAA"}

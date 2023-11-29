@@ -1,0 +1,1 @@
+{"version":3,"file":"Fake-db.d.ts","sourceRoot":"","sources":["../Server-Logic/Fake-db.ts"],"names":[],"mappings":"AAAA,KAAK,cAAc,GAAG;IAClB,EAAE,EAAE,MAAM,CAAC;IACX,KAAK,EAAE,MAAM,CAAC;IACd,QAAQ,EAAE,MAAM,CAAC;IACjB,YAAY,EAAE,MAAM,CAAA;CACvB,EAAE,CAAA;AAEH,QAAA,IAAI,MAAM,EAAE,cAOX,CAAA;AAED,eAAe,MAAM,CAAA"}

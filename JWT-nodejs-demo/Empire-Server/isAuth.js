@@ -4,7 +4,7 @@ const jsonwebtoken_1 = require("jsonwebtoken");
 const dotenv_1 = require("dotenv");
 (0, dotenv_1.config)();
 function isAuth(req) {
-    const authorization = req.header("authorizatiom");
+    const authorization = req.header("authorization");
     console.log(authorization);
     if (!authorization)
         throw new Error("You need to login");

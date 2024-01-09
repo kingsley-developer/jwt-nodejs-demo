@@ -5,7 +5,7 @@ import { config } from "dotenv";
 config()
 
 export default function isAuth(req: Request){
-    const authorization = req.header("authorizatiom")
+    const authorization = req.header("authorization")
     console.log(authorization)
     if(!authorization) throw new Error("You need to login")
     const token = authorization.split(" ")[1]

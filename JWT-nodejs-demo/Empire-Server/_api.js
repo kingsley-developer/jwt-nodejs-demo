@@ -21,6 +21,7 @@ const moment_1 = __importDefault(require("moment"));
 const Fake_db_1 = __importDefault(require("./Fake-db"));
 const tokens_1 = require("./tokens");
 const isAuth_1 = __importDefault(require("./isAuth"));
+const jsonwebtoken_1 = require("jsonwebtoken");
 (0, dotenv_1.config)();
 const app = (0, express_1.default)();
 const PORT = Number(process.env.PORT);
@@ -71,7 +72,7 @@ function Server() {
         }
     }));
     app.post("/logout", (_Req, Res) => __awaiter(this, void 0, void 0, function* () {
-        Res.status(200).clearCookie("refreshtoken");
+        Res.status(200).clearCookie("refreshtoken", { path: "/refresh_token" });
         Res.status(200).json({ msg: "Logged out" });
     }));
     app.post("/protected", (Req, Res) => __awaiter(this, void 0, void 0, function* () {
@@ -85,6 +86,29 @@ function Server() {
             Res.status(200).json({ date, err: e });
         }
     }));
+    app.post("/refresh_token", (Req, Res) => {
+        const token = Req.cookies.refreshtoken;
+        if (!token)
+            return Res.status(404).json({ accesstoken: "" });
+        let payload = null;
+        try {
+            payload = (0, jsonwebtoken_1.verify)(token, String(process.env.REFRESH_TOKEN_SECRET));
+        }
+        catch (err) {
+            return Res.status(404).json({ accesstoken: "" });
+        }
+        const user = Fake_db_1.default.find(user => user.id === payload.userId);
+        if (!user)
+            return Res.status(404).json({ accesstoken: "" });
+        if (user.refreshtoken !== token) {
+            return Res.status(404).json({ accesstoken: "" });
+        }
+        const accessToken = (0, tokens_1.createAccess)(user.id);
+        const refreshToken = (0, tokens_1.createRefresh)(user.id);
+        user.refreshtoken = refreshToken;
+        (0, tokens_1.sendRefresh)(Res, refreshToken);
+        Res.status(200).json({ accessToken });
+    });
     app.use("*", (_Req, Res) => {
         Res.status(404).json({ date, msg: "Page not found" });
     });
